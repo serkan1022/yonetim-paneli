@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/config/db.php';
 require __DIR__ . '/includes/auth.php';
+require __DIR__ . '/includes/functions.php';
 
 // Zaten giriş yapmışsa doğrudan panele yönlendir
 if (!empty($_SESSION['user_id'])) {
