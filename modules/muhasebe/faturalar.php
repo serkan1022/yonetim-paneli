@@ -1,9 +1,4 @@
 <?php
-/**
- * index.php üzerinden dahil edilir.
- * Hazır değişkenler: $pdo, $canAdd, $canUpdate, $canDelete
- */
-
 $editId   = isset($_GET['edit']) ? (int)$_GET['edit'] : 0;
 $errorMsg = '';
 
@@ -86,11 +81,11 @@ $durumSecenekleri = ['Bekliyor', 'Ödendi', 'İptal'];
 
             <label>Cari Adı</label>
             <input type="text" name="cari_adi" value="<?= e($editingInvoice['cari_adi']) ?>"
-                   style="width:100%;padding:8px;margin-bottom:12px;" required>
+                   style="width:100%;padding:10px;margin-bottom:12px;" required>
 
             <label>Tutar (₺)</label>
             <input type="number" step="0.01" name="tutar" value="<?= e((string)$editingInvoice['tutar']) ?>"
-                   style="width:100%;padding:8px;margin-bottom:12px;">
+                   style="width:100%;padding:10px;margin-bottom:12px;">
 
             <label>Durum</label>
             <select name="durum" style="width:100%;padding:8px;margin-bottom:12px;">
@@ -110,7 +105,6 @@ $durumSecenekleri = ['Bekliyor', 'Ödendi', 'İptal'];
 <?php else: ?>
 
     <?php if ($canAdd): ?>
-    <!-- ================= YENİ FATURA EKLEME ================= -->
     <div class="card">
         <h2>Yeni Fatura Ekle</h2>
         <form method="post" action="index.php?page=fatura_listesi">
@@ -140,8 +134,6 @@ $durumSecenekleri = ['Bekliyor', 'Ödendi', 'İptal'];
         </form>
     </div>
     <?php endif; ?>
-
-    <!-- ================= FATURA LİSTESİ ================= -->
     <div class="card">
         <h2>Fatura Listesi</h2>
         <table class="data-table">

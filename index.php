@@ -6,6 +6,7 @@ ob_start();
 require __DIR__ . '/config/db.php';
 require __DIR__ . '/includes/auth.php';
 require __DIR__ . '/includes/functions.php';
+require __DIR__ . '/includes/lang.php';
 
 requireLogin();
 
@@ -16,14 +17,14 @@ $pageKey = $_GET['page'] ?? '';
 
 if ($pageKey === '') {
     // ---- Varsayılan ana sayfa (dashboard) ----
-    $pageTitle      = 'Ana Sayfa';
+    $pageTitle      = t('home');
     $currentPageKey = '';
     require __DIR__ . '/includes/header.php';
     ?>
     <div class="card">
-        <h2>Hoş geldin, <?= e(currentFullName()) ?></h2>
-        <p>Grubun: <strong><?= e($_SESSION['group_name'] ?? '') ?></strong></p>
-        <p>Sol menüden, yetkin olan modül ve sayfalara erişebilirsin.</p>
+        <h2><?= e(t('welcome')) ?>, <?= e(currentFullName()) ?></h2>
+        <p><?= e(t('your_group')) ?>: <strong><?= e($_SESSION['group_name'] ?? '') ?></strong></p>
+        <p><?= e(t('welcome_hint')) ?></p>
     </div>
     <?php
     require __DIR__ . '/includes/footer.php';
@@ -35,10 +36,10 @@ $page = getPageByKey($pdo, $pageKey);
 
 if (!$page) {
     http_response_code(404);
-    $pageTitle      = 'Sayfa Bulunamadı';
+    $pageTitle      = t('not_found_title');
     $currentPageKey = $pageKey;
     require __DIR__ . '/includes/header.php';
-    echo '<div class="card"><h2>404 - Sayfa Bulunamadı</h2><p>Aradığınız sayfa tanımlı değil.</p></div>';
+    echo '<div class="card"><h2>' . e(t('not_found_title')) . '</h2><p>' . e(t('not_found_body')) . '</p></div>';
     require __DIR__ . '/includes/footer.php';
     exit;
 }

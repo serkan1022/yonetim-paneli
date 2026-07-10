@@ -9,7 +9,34 @@
     --accent: #2563eb;
     --danger: #dc2626;
     --success: #16a34a;
+    --card-bg: #ffffff;
+    --table-header-bg: #f9fafb;
+    --input-bg: #ffffff;
 }
+
+/* ================= KOYU TEMA ================= */
+html[data-theme="dark"] {
+    --sidebar-bg: #0f172a;
+    --sidebar-text: #cbd5e1;
+    --sidebar-active: #3b82f6;
+    --topbar-bg: #1e293b;
+    --content-bg: #0b1220;
+    --border-color: #334155;
+    --text-dark: #e2e8f0;
+    --accent: #3b82f6;
+    --danger: #ef4444;
+    --success: #22c55e;
+    --card-bg: #1e293b;
+    --table-header-bg: #0f172a;
+    --input-bg: #0f172a;
+}
+
+html[data-theme="dark"] .login-wrapper {
+    background: linear-gradient(135deg, #0b1220, #1e293b);
+}
+
+html[data-theme="dark"] .badge-yes { background: #064e3b; color: #6ee7b7; }
+html[data-theme="dark"] .badge-no  { background: #7f1d1d; color: #fca5a5; }
 
 * { box-sizing: border-box; }
 
@@ -123,7 +150,7 @@ body {
 
 /* --- Genel kartlar / tablolar --- */
 .card {
-    background: #fff;
+    background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 20px;
@@ -144,8 +171,13 @@ table.data-table td {
 }
 
 table.data-table th {
-    background: #f9fafb;
+    background: var(--table-header-bg);
     font-weight: 600;
+    color: var(--text-dark);
+}
+
+table.data-table td {
+    color: var(--text-dark);
 }
 
 .btn {
@@ -182,7 +214,7 @@ table.data-table th {
 }
 
 .login-box {
-    background: #fff;
+    background: var(--card-bg);
     padding: 36px 32px;
     border-radius: 10px;
     width: 340px;
@@ -193,13 +225,14 @@ table.data-table th {
     font-size: 20px;
     margin: 0 0 24px 0;
     text-align: center;
+    color: var(--text-dark);
 }
 
 .login-box label {
     display: block;
     font-size: 13px;
     margin-bottom: 6px;
-    color: #374151;
+    color: var(--text-dark);
 }
 
 .login-box input {
@@ -209,6 +242,8 @@ table.data-table th {
     border: 1px solid var(--border-color);
     border-radius: 6px;
     font-size: 14px;
+    background: var(--input-bg);
+    color: var(--text-dark);
 }
 
 .login-box button {
@@ -222,6 +257,27 @@ table.data-table th {
     cursor: pointer;
 }
 
+.content-area input,
+.content-area select,
+.content-area textarea {
+    background: var(--input-bg);
+    color: var(--text-dark);
+    border-color: var(--border-color);
+}
+
+.topbar-controls a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 13px;
+}
+
+.topbar-controls .btn-theme {
+    background: var(--content-bg);
+    border: 1px solid var(--border-color);
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
 .login-error {
     background: #fee2e2;
     color: #991b1b;
@@ -229,4 +285,9 @@ table.data-table th {
     border-radius: 6px;
     font-size: 13px;
     margin-bottom: 16px;
+}
+
+html[data-theme="dark"] .login-error {
+    background: #7f1d1d;
+    color: #fca5a5;
 }

@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_id']) && $canU
     $updateId = (int)$_POST['update_id'];
     $cariAdi  = trim($_POST['cari_adi'] ?? '');
     $telefon  = trim($_POST['telefon'] ?? '');
-    $bakiye   = (float)($_POST['bakiye'] ?? 0);
+    $bakiye   = (float)trim($_POST['bakiye'] ?? 0);
 
     if ($cariAdi !== '') {
         $stmt = $pdo->prepare(
@@ -121,7 +121,7 @@ $cariler = $pdo->query("SELECT * FROM cari_hesaplar ORDER BY cari_adi ASC")->fet
             <tr>
                 <th>#</th>
                 <th>Cari Adı</th>
-                <th>Telefon</th>
+               <th>Telefon</th>
                 <th>Bakiye</th>
                 <?php if ($canUpdate || $canDelete): ?><th style="width:160px;">İşlemler</th><?php endif; ?>
             </tr>

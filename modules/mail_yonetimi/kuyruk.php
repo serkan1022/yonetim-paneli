@@ -93,7 +93,7 @@ function durumBadgeClass(string $durum): string
             <th>Oluşturma</th>
             <th>Gönderim</th>
             <th>Hata Mesajı</th>
-            <?php if ($canUpdate || $canDelete): ?><th style="width:160px;">İşlemler</th><?php endif; ?>
+            <th style="width:200px;">İşlemler</th>
         </tr>
         </thead>
         <tbody>
@@ -116,20 +116,65 @@ function durumBadgeClass(string $durum): string
                 <td style="font-size:12px;"><?= e($q['olusturma_tarihi']) ?></td>
                 <td style="font-size:12px;"><?= $q['gonderim_tarihi'] ? e($q['gonderim_tarihi']) : '-' ?></td>
                 <td style="font-size:12px;color:#991b1b;max-width:220px;"><?= $q['hata_mesaji'] ? e($q['hata_mesaji']) : '-' ?></td>
-                <?php if ($canUpdate || $canDelete): ?>
-                    <td>
-                        <?php if ($canUpdate && $q['durum'] === 'Hata'): ?>
-                            <a href="index.php?page=mail_kuyrugu&retry=<?= (int)$q['id'] ?>" class="btn btn-primary">Yeniden Dene</a>
-                        <?php endif; ?>
-                        <?php if ($canDelete): ?>
-                            <a href="index.php?page=mail_kuyrugu&delete=<?= (int)$q['id'] ?>" class="btn btn-danger"
-                               onclick="return confirm('Bu kaydı silmek istediğinize emin misiniz?');">Sil</a>
-                        <?php endif; ?>
-                    </td>
-                <?php endif; ?>
+                <td>
+                    <button type="button" class="btn" style="background:#e5e7eb;padding:6px 10px;"
+                            title="Mail içeriğini görüntüle"
+                            onclick="panelMailPreview('<?= (int)$q['id'] ?>', '<?= e($q['konu']) ?>')"
+                            data-mail-content-<?= (int)$q['id'] ?>="<?= base64_encode($q['icerik']) ?>">
+                        👁
+                    </button>
+                    <?php if ($canUpdate && $q['durum'] === 'Hata'): ?>
+                        <a href="index.php?page=mail_kuyrugu&retry=<?= (int)$q['id'] ?>" class="btn btn-primary">Yeniden Dene</a>
+                    <?php endif; ?>
+                    <?php if ($canDelete): ?>
+                        <a href="index.php?page=mail_kuyrugu&delete=<?= (int)$q['id'] ?>" class="btn btn-danger"
+                           onclick="return confirm('Bu kaydı silmek istediğinize emin misiniz?');">Sil</a>
+                    <?php endif; ?>
+                </td>
             </tr>
         <?php endforeach; ?>
         </tbody>
     </table>
     <p style="font-size:12px;color:#9ca3af;margin-top:12px;">Son 200 kayıt gösteriliyor.</p>
 </div>
+
+<!-- ================= MAİL ÖNİZLEME MODAL ================= -->
+<div id="panelMailModalOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+    <div style="background:#fff; width:90%; max-width:640px; max-height:85vh; border-radius:10px; overflow:hidden; display:flex; flex-direction:column;">
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 20px; border-bottom:1px solid #e5e7eb;">
+            <strong id="panelMailModalTitle" style="font-size:15px;">Mail İçeriği</strong>
+            <button type="button" onclick="panelMailPreviewClose()" class="btn btn-danger" style="padding:4px 12px;">Kapat</button>
+        </div>
+        <iframe id="panelMailModalFrame" style="flex:1; width:100%; border:none; min-height:400px;"></iframe>
+    </div>
+</div>
+
+<script>
+function panelMailPreview(id, konu) {
+    var btn = document.querySelector('[data-mail-content-' + id + ']');
+    if (!btn) { return; }
+    var encoded = btn.getAttribute('data-mail-content-' + id);
+    var html;
+    try {
+        html = decodeURIComponent(escape(atob(encoded)));
+    } catch (e) {
+        html = atob(encoded);
+    }
+    document.getElementById('panelMailModalTitle').textContent = konu;
+    document.getElementById('panelMailModalFrame').srcdoc = html;
+    document.getElementById('panelMailModalOverlay').style.display = 'flex';
+}
+function panelMailPreviewClose() {
+    document.getElementById('panelMailModalOverlay').style.display = 'none';
+    document.getElementById('panelMailModalFrame').srcdoc = '';
+}
+// Overlay'in kendisine (arka plana) tıklanınca da kapansın
+document.addEventListener('DOMContentLoaded', function () {
+    var overlay = document.getElementById('panelMailModalOverlay');
+    overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) {
+            panelMailPreviewClose();
+        }
+    });
+});
+</script>

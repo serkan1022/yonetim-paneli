@@ -37,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_id']) && $canU
     }
 }
 
-// ---- DÜZENLEME FORMU İÇİN ÜRÜNÜ ÇEK ----
 $editingProduct = null;
 if ($editId && $canUpdate) {
     $stmt = $pdo->prepare("SELECT * FROM stok_urunleri WHERE id = :id");

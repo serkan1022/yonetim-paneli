@@ -39,10 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $canAdd) {
     <form method="post" action="index.php?page=stok_ekle">
         <label>Ürün Adı</label>
         <input type="text" name="urun_adi" style="width:100%;padding:8px;margin-bottom:12px;" required>
-
         <label>Kategori</label>
         <input type="text" name="kategori" style="width:100%;padding:8px;margin-bottom:12px;">
-
         <label>Stok Adedi</label>
         <input type="number" name="stok_adedi" value="0" style="width:100%;padding:8px;margin-bottom:16px;">
 

@@ -1,15 +1,9 @@
 <?php
-/**
- * Veritabanı Bağlantı Ayarları
- * Bu dosya PDO kullanarak MySQL bağlantısı kurar.
- */
-
 $DB_HOST = 'localhost';
 $DB_PORT = '3306';
 $DB_NAME = 'panel_db';
 $DB_USER = 'root';
-$DB_PASS = 'abc123'; // Kendi root şifreni yazdın, gerekirse burayı güncelle
-
+$DB_PASS = 'abc123'; 
 try {
     $pdo = new PDO(
         "mysql:host={$DB_HOST};port={$DB_PORT};dbname={$DB_NAME};charset=utf8mb4",

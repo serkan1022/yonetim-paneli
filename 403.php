@@ -1,5 +1,5 @@
 <div class="card">
-    <h2>Erişim Engellendi</h2>
-    <p>Bu sayfayı görüntülemek için yetkiniz bulunmuyor. Gerekli izinler için sistem yöneticinizle iletişime geçin.</p>
-    <a href="index.php" class="btn btn-primary">Ana Sayfaya Dön</a>
+    <h2><?= e(t('access_denied_title')) ?></h2>
+    <p><?= e(t('access_denied_body')) ?></p>
+    <a href="index.php" class="btn btn-primary"><?= e(t('back_home')) ?></a>
 </div>
